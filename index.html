@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Messaggio NFC</title>
+
+  <!-- Redirect automatico dopo N secondi (imposta il tempo in secondsToRedirect) -->
+  <meta http-equiv="refresh" content="5; url=https://link-di-destinazione.example" />
+
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    body{margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#f3f6f9}
+    .card{background:white;padding:20px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);max-width:640px;text-align:center}
+    h1{margin:0 0 8px;font-size:1.5rem}
+    p{margin:0 0 16px;color:#333}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;text-decoration:none;border:1px solid #ddd}
+    small{display:block;margin-top:10px;color:#666}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <h1>TESTO_DA_MOSTRARE</h1>
+    <p>Verrai reindirizzato tra <span id="count">5</span> secondi.</p>
+    <a id="openNow" class="btn" href="https://link-di-destinazione.example">Apri subito il link</a>
+    <small>Se il reindirizzamento non funziona, tocca "Apri subito il link".</small>
+  </div>
+
+  <script>
+    // Imposta qui quanti secondi aspettare prima del redirect
+    let secondsToRedirect = 5;
+    const el = document.getElementById('count');
+    const targetUrl = "https://link-di-destinazione.example"; // metti il link definitivo
+
+    let t = secondsToRedirect;
+    el.textContent = t;
+    const timer = setInterval(() => {
+      t -= 1;
+      el.textContent = t;
+      if (t <= 0) {
+        clearInterval(timer);
+        // usa location.replace per non aggiungere la pagina alla cronologia
+        window.location.replace(targetUrl);
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
